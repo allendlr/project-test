@@ -1,87 +1,48 @@
 #include <iostream>
 #include <string.h>
-#include "data.h"
-#include "implementation.cpp"
+#include "Data.h"
+#include "Implementation.cpp"
 
 using namespace std;
 
 int main() {
   MovieList ml;
-  int codes[100];
   int code;
-  int cnt = 0;
+	int year;
   string title;
   string genre;
-  int year;
  
 	while (true) {
     system("clear");
-    
     switch (menu()) {
       case '1':
-        cout << endl << " << Inserting a New Movie >> " << endl << endl;
-        {
-          
-          while (true) {
-            cout << "Enter Movie Code: ";
-            cin >> code;
-            bool checker = true;
-            for (int i = 0; i < cnt; i++) {
-              if (code == codes[i]) {
-                checker = false;
-              }
-            }
-            if (checker) {
-              break;
-            } else {
-              cout << "Movie code already exists. Please try again." << endl;
-            }
-          }
-          cin.ignore();
-          cout << "Enter Movie Title: ";
-          
-          getline(cin, title);
-          cout << "Enter Movie Genre: ";
-         
-          getline(cin, genre);
-          cout << "Enter Year Released: ";
-          
-          cin >> year;
-          ml.InsertNode(code, title, genre, year);
-          codes[cnt++] = code;
-        }
+				cout << endl << " << Insert a Movie >> " << endl << endl; 
+				ml.getCode(&code);
+                if (ml.isDuplicate(code)){ //check duplicates - allen
+                    cout<<"Movie Code already Existed";
+                    break;
+                }
+				ml.getMovieData(&title, &genre, &year);
+				ml.InsertNode(code, title, genre, year);
         break;
-      case '2':
-        cout << "Enter Movie Code: ";
-            cin >> code;      
-			  cout << endl << " << Renting a Movie >> " << endl << endl;         
-        ml.DeleteNode(code);
+      case '2':		
+			  cout << endl << " << Renting a Movie >> " << endl << endl;     
+				ml.getCode(&code);
+                ml.DeleteNode(code);
         break;
       case '3':
-          cout << "Enter Movie Code: ";
-          cin >> code;  
-          
-          cin.ignore();
-          cout << "Enter Movie Title: ";         
-          getline(cin, title);
-
-          cout << "Enter Movie Genre: ";        
-          getline(cin, genre);
-
-          cout << "Enter Year Released: ";      
-          cin >> year;
-          ml.AppendNode(code, title, genre, year);
-          
-   
-        
-        break;
-    
+				cout<< endl << " << Return a Movie >> " << endl << endl;
+				ml.getCode(&code);
+                if (!ml.rentReturn(code)){ //check duplicates in rent list - allen
+                    cout<<"Movie doesn't Exist in Rented List.";
+                    break;
+                }
+                ml.AppendNode(code);
+        break;    
       case '4':
-        cout << endl << " << Movie Details >> " << endl << endl;
-        cout << "Enter movie code: ";
-        int code;
-        cin >> code;
-        ml.TraverseList(code);
+        cout << endl << " << Movie Details >> " << endl << endl; //fix this running even no data -allen
+				ml.getCode(&code);
+                ml.TraverseList(code);
         break;
       case '5':
         cout << endl << " << Movie List >> " << endl << endl; 
@@ -94,6 +55,7 @@ int main() {
         cout << endl << "Invalid Input!" << endl << endl;
 		  	break;
     }
+		
     while (true) {    
       char choice;
       cout << "\nUse JubiLoop's Movie Menu Again? (Y/N): ";
@@ -111,5 +73,4 @@ int main() {
       }
     }
   }
-  return 0;
 }
