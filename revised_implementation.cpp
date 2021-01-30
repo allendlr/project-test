@@ -302,9 +302,23 @@ void MovieList::DisplayList(){
 	}else{
 	nodePtr = head;
 		while(nodePtr!=NULL){	
-			cout<<nodePtr->data.movie_code<<". ";
+			cout<<nodePtr->data.movie_code<<", ";
 			cout<<nodePtr->data.movie_title<<endl;
 			nodePtr = nodePtr -> next;
 		}	
 	}
+  cout<<endl<<" << Rented List >> " <<endl<<endl;
+  if(!rent_head){
+    cout<<"The Rented List is Empty!\a\n";
+  }
+  else{
+    nodePtr = rent_head;
+    while (nodePtr != NULL)
+    {
+      cout<<nodePtr->data.movie_code<<", ";
+      cout<<nodePtr->data.movie_title<<endl;
+      nodePtr = nodePtr->next;
+    }
+    
+  }
 }
