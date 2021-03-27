@@ -6,7 +6,7 @@ using namespace std;
 Graph::Graph(int x)
 {
 	V = x;
-	cost = new list<int>[V];
+	cost = new list<int>[V]; // - Allen Christopher H. Dela Rosa
 	adj = new list <int> [V];
 	adj2 = new int* [V];
 	for (int i = 0; i < V; i++)
@@ -19,6 +19,7 @@ Graph::Graph(int x)
 
 void Graph::addEdge(int u, int v, int price)
 {
+	//Added cost parallel with adj - Allen Christopher H. Dela Rosa
 	cost[u].push_back(price);
 	adj[u].push_back(v);
 }
@@ -41,6 +42,8 @@ void Graph::printGraph()
 		cout << endl;
 	}
 	cout<<endl;
+
+	//Prints the weight of each edges - Allen Christopher H. Dela Rosa
 	cout<<"Edge Weight..." <<endl;
 	for(int v = 0; v < V; ++v){
 		cout<< "V[" << v << "]";
@@ -72,7 +75,9 @@ void Graph::DFSUtil(int v, bool visited[])
 	// Mark the current node as visited and 
 	// print it 
 	visited[v] = true;
+	// arr to represent vertices - Allen Christopher H. Dela Rosa
 	string arr[7] = {"Atlanta", "Austin", "Chicago", "Dallas", "Denver", "Houston", "Washington"};
+	// modified to print both vertex and state - Allen Christopher H. Dela Rosa
 	cout << "[" << v << "] "<< arr[v] << " ";
 
 	// Recur for all the vertices adjacent 
@@ -125,6 +130,7 @@ void Graph::BFS(int s)
 void Graph::BFSUtil(int s, bool visited[])
 {
 	// Create a queue for BFS
+	// new arr to represent vertices - Allen Christopher H. Dela Rosa
 	string arr[7] = {"Atlanta", "Austin", "Chicago", "Dallas", "Denver", "Houston", "Washington"};
 	list<int> queue;
 
@@ -140,6 +146,7 @@ void Graph::BFSUtil(int s, bool visited[])
 	{
 		// Dequeue a vertex from queue and print it 
 		s = queue.front();
+		// modified to print both vertex and state
 		cout << "[" << s << "] " << arr[s] << " ";
 		queue.pop_front();
 
