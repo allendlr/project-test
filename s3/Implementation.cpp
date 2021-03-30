@@ -203,7 +203,7 @@ void Graph::findPath(int u, int v){
 	}
 }
 
-void Graph::PathUtil(int u, bool visited[], int v){
+void Graph::PathUtil(int u, bool visited[], int des){
 	visited[u] = true;
 	cout << "[" << u << "] " << countries[u] << " ";
 	list<int>::iterator i;
@@ -211,7 +211,7 @@ void Graph::PathUtil(int u, bool visited[], int v){
 	{
 		if (!visited[*i])
 		{
-			PathUtil(*i, visited, v);
+			PathUtil(*i, visited, des);
 		}
 	}
 }
