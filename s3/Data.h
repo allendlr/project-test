@@ -15,7 +15,7 @@ class Graph {
 		list<int> *cost;
 		int **adj2;
 		void DFSUtil(int v, bool visited[]);
-		void PathUtil(int v, bool visited[], int v);
+		void PathUtil(int v, bool visited[], int des);
 		void BFSUtil(int s, bool visited[]);
 	public:
 		Graph(int);
