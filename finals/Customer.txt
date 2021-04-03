@@ -1,0 +1,16 @@
+1
+Jubilee Maranan
+Unknown
+
+2
+Allen Dela Rosa
+Quezon City
+
+3
+Jason Galang
+Manila
+
+4
+cd "c:\Users\Allen Dela Rosa\Desktop\Coding\C++\finals\" ; if ($?) { g++ Main.cpp -o Main } ; if ($?) { .\Main }
+asd
+
