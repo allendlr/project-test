@@ -27,6 +27,7 @@ class VideoList {
 		void GetVideoData(string *title, string *genre, string *production, int *copies, string *file);
 		void NewVideo(string title, string genre, string production, int copies, string file);
 		void ShowVideoDetails(int input_id);
+		void CheckAvailability(int input_id);
 		void DisplayVideos();
 		void addCopy(int);
 		void subCopy(int);

@@ -110,6 +110,7 @@ VideoList::VideoList() {
 
 VideoList::~VideoList() {
 	// this is the algorithm for writing data into the text file
+	retrieve();
 	ofstream print("Videos.txt");
 	VideoNode *node_pointer;
 	if (head == NULL) {
@@ -227,7 +228,6 @@ void VideoList::NewVideo(string title, string genre, string production, int copi
 
 void VideoList::ShowVideoDetails(int input_id) {
 	// this is the algorithm for finding a video using the input provided by the user
-	//retrieve();
 	VideoNode *node_pointer;
 	bool checker = false;
 	if (head == NULL) {
@@ -269,6 +269,37 @@ void VideoList::DisplayVideos() {
 			cout << "Movie Image Filename: " << node_pointer->data.movie_image_filename << endl;
 			node_pointer = node_pointer->next;
 		}
+	}
+}
+
+void VideoList::CheckAvailability(int input_id){
+	// this is the algorithm for finding a video using the input provided by the user
+	retrieve();
+	VideoNode *node_pointer;
+	bool available = true;
+	bool checker = false;
+	if (head == NULL) {
+		cout << "The list is empty." << endl;
+	} else {
+		node_pointer = head;
+		while (node_pointer != NULL) {
+			if(node_pointer->data.number_of_copies <= 0)
+				available = false;
+			string avail = available ? "Available!": "Not Available";
+			if (node_pointer->data.video_id == input_id) {
+				cout << "Movie Title: " << node_pointer->data.movie_title << endl;
+				cout << "Genre: " << node_pointer->data.genre << endl;
+				cout << "Production: " << node_pointer->data.production << endl;
+				cout << "Number of Copies: " << node_pointer->data.number_of_copies << endl;
+				cout << "Availability: " << avail << endl;
+				checker = true;
+				break;
+			} 
+			node_pointer = node_pointer->next;
+		}
+	}
+	if (checker == false) {
+		cout << "The video cannot be found." << endl;
 	}
 }
 
@@ -385,6 +416,17 @@ void CustomerParentList::ShowCustomerDetails() {
 	}
 }
 
+void CustomerParentList::retrieveCustomerName(int id_key){
+	string name = "";
+	string address = "";
+	DisplayCustomers(id_key, name, address);
+	if (name != "" && address != "") {
+		cout << endl;
+		cout << "Name: " << name << endl;
+		cout << "Address: " << address << endl;
+	}
+}
+
 void CustomerParentList::DisplayCustomers(int person_id, string &name, string &address) {
 	// this is the algorithm for searching the customer in the queue (if it exists)
 	CustomerParentNode *holder;
@@ -422,21 +464,100 @@ bool CustomerParentList::IsEmpty() {
 }
 
 // ------------------------------- Customer Rent Child LIST ------------------------------------- //
-
-CustomerRentChildList::CustomerRentChildList(){
-	ofstream print("Rent.txt");
-	RentNode *node_pointer;
-	if (head == NULL) {
-		cout << "The list is empty." << endl;
-	} else {
-		node_pointer = head;
-		while (node_pointer != NULL) {
-			print << node_pointer->data.video_id << endl;
-			print << node_pointer->data.customer_id<< endl << endl;
-			node_pointer = node_pointer->next;
+void GetNumberOfElementsForRent(int &num2) {
+	// this is the algorithm for getting the number of elements in the text file
+	string temp;
+	ifstream data_file("Rent.txt");
+	while (getline(data_file, temp)) {
+		num2++;
+	}
+	data_file.close();
+}
+void CustomerRentChildList::RetrieveRent() {
+	head = NULL;
+	// this is the algorithm for reading data from the text file
+	int number_of_elements = 0;
+	GetNumberOfElementsForRent(number_of_elements);
+	string *array;
+	array = new string[number_of_elements + 1];
+	string rent_data;
+	ifstream data_file("Rent.txt");
+	int index = 1;
+	while (getline(data_file, rent_data)) {
+		array[index] = rent_data;
+		index++;
+	}
+	for (int i = 1; i <= index; i++) {
+		// this part used the concept of 'Modular Arithmetic'
+		// for better understanding, 
+		// visit this link: https://en.wikipedia.org/wiki/Modular_arithmetic
+		if (i % 3 == 0) {
+			RentNode *new_node, *node_pointer;
+			new_node = new RentNode();
+			int v_id = 0;
+			int c_id = 0;
+			stringstream vid_id(array[i - 2]);
+			stringstream cus_id(array[i - 1]);
+			vid_id >> v_id;
+			cus_id >> c_id;
+			new_node->data.video_id = v_id;
+			new_node->data.customer_id = c_id;
+			new_node->next = NULL;
+			if (!head) {
+				head = new_node;
+			} else {
+				node_pointer = head;
+				while (node_pointer->next) {
+					node_pointer = node_pointer->next;
+				}
+				node_pointer->next = new_node;
+			}
 		}
 	}
-	print.close();
+	data_file.close();
+}
+CustomerRentChildList::CustomerRentChildList(){
+	head = NULL;
+	// this is the algorithm for reading data from the text file
+	int number_of_elements = 0;
+	GetNumberOfElementsForRent(number_of_elements);
+	string *array;
+	array = new string[number_of_elements + 1];
+	string rent_data;
+	ifstream data_file("Rent.txt");
+	int index = 1;
+	while (getline(data_file, rent_data)) {
+		array[index] = rent_data;
+		index++;
+	}
+	for (int i = 1; i <= index; i++) {
+		// this part used the concept of 'Modular Arithmetic'
+		// for better understanding, 
+		// visit this link: https://en.wikipedia.org/wiki/Modular_arithmetic
+		if (i % 3 == 0) {
+			RentNode *new_node, *node_pointer;
+			new_node = new RentNode();
+			int v_id = 0;
+			int c_id = 0;
+			stringstream vid_id(array[i - 2]);
+			stringstream cus_id(array[i - 1]);
+			vid_id >> v_id;
+			cus_id >> c_id;
+			new_node->data.video_id = v_id;
+			new_node->data.customer_id = c_id;
+			new_node->next = NULL;
+			if (!head) {
+				head = new_node;
+			} else {
+				node_pointer = head;
+				while (node_pointer->next) {
+					node_pointer = node_pointer->next;
+				}
+				node_pointer->next = new_node;
+			}
+		}
+	}
+	data_file.close();
 }
 
 CustomerRentChildList::~CustomerRentChildList() {
@@ -444,57 +565,69 @@ CustomerRentChildList::~CustomerRentChildList() {
 	ofstream print("Rent.txt");
 	RentNode *node_pointer;
 	node_pointer = head;
-	
 	while (node_pointer != NULL) {
 			print << node_pointer->data.video_id << endl;
-			print << node_pointer->data.customer_id << endl;
+			print << node_pointer->data.customer_id << endl
+				  << endl;
 			node_pointer = node_pointer->next;
 		}
 	print.close();
 }
 
-
-
 void CustomerRentChildList::DisplayRentList(){
-		RentNode *node_pointer;
+	RentNode *node_pointer;
 	if (head == NULL) {
 		cout<<"List is Empty!";
 	} else {
 		node_pointer = head;
 		while (node_pointer) {
 			cout<<"Video ID: " << node_pointer -> data.video_id<<endl;
-			cout<<"Rented by: " <<node_pointer -> data.customer_id<<endl<<endl;;
+			int id_key = node_pointer -> data.customer_id;
+			cout<<"Rented by:"; 
+			retrieveCustomerName(id_key);
+			cout << endl <<endl;
 			node_pointer = node_pointer->next;
 		}
 	}
 }
 
-
-
 void CustomerRentChildList::RentVideo(){
 	int id, id2;
-
+	bool duplicate = false;
 	cout << "Enter Video ID to rent: ";
 	cin >> id;
 	cout<< "Enter Customer ID:";
 	cin >> id2;
 
 	RentNode *new_node, *node_pointer;
-	new_node = new RentNode();
-	new_node->data.video_id = id;
-	new_node->data.customer_id = id2;
-	new_node->next = NULL;
-	
-	if (!head) {
-		head = new_node;
-	} else {
-		node_pointer = head;
-		while (node_pointer ->next != NULL) {
-			node_pointer = node_pointer->next;
+	node_pointer = head;
+		while (node_pointer) {
+			if(node_pointer->data.video_id == id && node_pointer->data.customer_id == id2){
+				duplicate = true;
+				break;
+			}
+
 		}
-		node_pointer->next = new_node;
+	if(duplicate){
+		cout << "Cannot rent the same movie again!" << endl;
+	} 
+	else{
+		new_node = new RentNode();
+		new_node->data.video_id = id;
+		new_node->data.customer_id = id2;
+		new_node->next = NULL;
+		
+		if (!head) {
+			head = new_node;
+		} else {
+			node_pointer = head;
+			while (node_pointer ->next != NULL) {
+				node_pointer = node_pointer->next;
+			}
+			node_pointer->next = new_node;
+		}
+		subCopy(id);
 	}
-	subCopy(id);
 }
 
 void CustomerRentChildList::ReturnVideo(){

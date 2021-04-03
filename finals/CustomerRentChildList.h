@@ -27,6 +27,8 @@ class CustomerRentChildList: public CustomerParentList, public VideoList{
 		void RentVideo();
 		void DisplayRentList();
 		void ReturnVideo();
+		void RetrieveRent();
+		void UpdateRent();
 };
 
 #endif

@@ -49,8 +49,9 @@ int main() {
 				break;
 			case '6':
 				cout << endl << " << Check Video Availability >> " << endl << endl;
-				// alaws pa
-				cout << "alaws pa" << endl;
+				cout << "Video ID: ";
+				cin >> input_id;
+				video_list_object.CheckAvailability(input_id);
 				Prompt();
 				break;
 			case '7':
@@ -69,8 +70,7 @@ int main() {
 						break;
 					case '3':
 						cout << endl << " << List of Videos Rented by a Customer >> " << endl;
-						// alaws pa
-						cout << "alaws pa" << endl;
+						customer_rent_child_list_object.DisplayRentList();
 						break;
 					default:
 						cout << endl << "Invalid Input!" << endl;
