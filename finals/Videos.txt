@@ -2,7 +2,7 @@
 Avengers: Endgame
 Sci-Fi
 Marvel Studios
-10
+8
 c:\endgame.jpg
 
 2
@@ -32,11 +32,4 @@ Family
 Blue Sky Studios
 15
 c:\snoopy.jpg
-
-6
-mode r
-kek
-pol
-1
-kill
 

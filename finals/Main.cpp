@@ -27,14 +27,12 @@ int main() {
 				break;
 			case '2':
 				cout << endl << " << Rent a Video >> " << endl << endl;
-				// alaws pa
-				cout << "alaws pa" << endl;
+				customer_rent_child_list_object.RentVideo();
 				Prompt();
 				break;
 			case '3':
 				cout << endl << " << Return a Video >> " << endl << endl;
-				// alaws pa
-				cout << "alaws pa" << endl;
+				customer_rent_child_list_object.ReturnVideo();
 				Prompt();
 				break;
 			case '4':
@@ -51,9 +49,8 @@ int main() {
 				break;
 			case '6':
 				cout << endl << " << Check Video Availability >> " << endl << endl;
-				cout << "Video ID: ";
-				cin >> input_id;
-				video_list_object.CheckAvailability(input_id);
+				// alaws pa
+				cout << "alaws pa" << endl;
 				Prompt();
 				break;
 			case '7':

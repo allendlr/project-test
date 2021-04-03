@@ -5,11 +5,28 @@
 #include "CustomerParentList.h"
 #pragma once
 
-class CustomerRentChildList {
+struct Rent {
+	int video_id;
+	int customer_id;
+};
+
+
+class CustomerRentChildList: public CustomerParentList, public VideoList{
 	private:
+		struct RentNode{
+			Rent data;
+			RentNode *next = NULL;
+		};
 		
+		int id1, id2;
+		RentNode *head = NULL;
+	
 	public:
-		
+		CustomerRentChildList();
+		~CustomerRentChildList();
+		void RentVideo();
+		void DisplayRentList();
+		void ReturnVideo();
 };
 
 #endif
