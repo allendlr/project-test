@@ -354,6 +354,8 @@ void VideoList::CheckAvailability(int input_id)
 			string avail = available ? "Available!" : "Not Available";
 			if (node_pointer->data.video_id == input_id)
 			{
+				string filename = node_pointer->data.movie_image_filename;
+				system(filename.c_str());
 				cout << "Movie Title: " << node_pointer->data.movie_title << endl;
 				cout << "Genre: " << node_pointer->data.genre << endl;
 				cout << "Production: " << node_pointer->data.production << endl;
