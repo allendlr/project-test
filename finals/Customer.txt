@@ -11,6 +11,6 @@ Jason Galang
 Manila
 
 4
-cd "c:\Users\Allen Dela Rosa\Desktop\Coding\C++\finals\" ; if ($?) { g++ Main.cpp -o Main } ; if ($?) { .\Main }
-asd
+jason 2
+3
 

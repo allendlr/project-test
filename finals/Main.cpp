@@ -8,7 +8,8 @@
 
 using namespace std;
 
-int main() {
+int main()
+{
 	VideoList video_list_object;
 	CustomerParentList customer_parent_list_object;
 	CustomerRentChildList customer_rent_child_list_object;
@@ -17,86 +18,118 @@ int main() {
 	string title, genre, production, file;
 	// variables for the customer parent
 	string name, address;
-	while (true) {
-		switch (Menu()) {
+	while (true)
+	{
+		switch (Menu())
+		{
+		case '1':
+			cout << endl
+				 << " << Insert a Movie >> " << endl
+				 << endl;
+			video_list_object.GetVideoData(&title, &genre, &production, &copies, &file);
+			video_list_object.NewVideo(title, genre, production, copies, file);
+			Prompt();
+			break;
+		case '2':
+			cout << endl
+				 << " << Rent a Video >> " << endl
+				 << endl;
+			customer_rent_child_list_object.RentVideo();
+			Prompt();
+			break;
+		case '3':
+			cout << endl
+				 << " << Return a Video >> " << endl
+				 << endl;
+			customer_rent_child_list_object.ReturnVideo();
+			Prompt();
+			break;
+		case '4':
+			cout << endl
+				 << " << Show Video Details >> " << endl
+				 << endl;
+			cout << "Video ID: ";
+			cin >> input_id;
+			video_list_object.ShowVideoDetails(input_id);
+			Prompt();
+			break;
+		case '5':
+			cout << endl
+				 << " << All Videos >> " << endl;
+			video_list_object.DisplayVideos();
+			Prompt();
+			break;
+		case '6':
+			cout << endl
+				 << " << Check Video Availability >> " << endl
+				 << endl;
+			cout << "Video ID: ";
+			cin >> input_id;
+			video_list_object.CheckAvailability(input_id);
+			Prompt();
+			break;
+		case '7':
+			cout << endl
+				 << " << Customer Maintenance >> " << endl
+				 << endl;
+			switch (SubMenu())
+			{
 			case '1':
-				cout << endl << " << Insert a Movie >> " << endl << endl;
-				video_list_object.GetVideoData(&title, &genre, &production, &copies, &file);
-				video_list_object.NewVideo(title, genre, production, copies, file);
+				cout << endl
+					 << " << Add New Customer >> " << endl
+					 << endl;
+				customer_parent_list_object.GetCustomerData(&name, &address);
+				customer_parent_list_object.AddCustomer(name, address);
 				Prompt();
 				break;
 			case '2':
-				cout << endl << " << Rent a Video >> " << endl << endl;
-				customer_rent_child_list_object.RentVideo();
+				cout << endl
+					 << " << Show Customer Details >> " << endl;
+				customer_parent_list_object.ShowCustomerDetails();
 				Prompt();
 				break;
 			case '3':
-				cout << endl << " << Return a Video >> " << endl << endl;
-				customer_rent_child_list_object.ReturnVideo();
-				Prompt();
+				cout << endl
+					 << " << List of Videos Rented by a Customer >> " << endl;
+				cout << "Customer ID: ";
+				cin>> input_id;
+				customer_rent_child_list_object.DisplayRentList(input_id);
 				break;
-			case '4':
-				cout << endl << " << Show Video Details >> " << endl << endl;
-				cout << "Video ID: ";
-				cin >> input_id;
-				video_list_object.ShowVideoDetails(input_id);
-				Prompt();
-				break;
-			case '5':
-				cout << endl << " << All Videos >> " << endl;
-				video_list_object.DisplayVideos();
-				Prompt();
-				break;
-			case '6':
-				cout << endl << " << Check Video Availability >> " << endl << endl;
-				cout << "Video ID: ";
-				cin >> input_id;
-				video_list_object.CheckAvailability(input_id);
-				Prompt();
-				break;
-			case '7':
-				cout << endl << " << Customer Maintenance >> " << endl << endl;
-				switch (SubMenu()) {
-					case '1':
-						cout << endl << " << Add New Customer >> " << endl << endl;
-						customer_parent_list_object.GetCustomerData(&name, &address);
-						customer_parent_list_object.AddCustomer(name, address);
-						Prompt();
-						break;
-					case '2':
-						cout << endl << " << Show Customer Details >> " << endl;
-						customer_parent_list_object.ShowCustomerDetails();
-						Prompt();
-						break;
-					case '3':
-						cout << endl << " << List of Videos Rented by a Customer >> " << endl;
-						customer_rent_child_list_object.DisplayRentList();
-						break;
-					default:
-						cout << endl << "Invalid Input!" << endl;
-						break;
-				}
-				break;
-			case '8':
-				cout << endl << "Thank you for using the program!" << endl;
-				return 0;
 			default:
-				cout << endl << "Invalid Input!" << endl;
-				Prompt();
+				cout << endl
+					 << "Invalid Input!" << endl;
 				break;
+			}
+			break;
+		case '8':
+			cout << endl
+				 << "Thank you for using the program!" << endl;
+			return 0;
+		default:
+			cout << endl
+				 << "Invalid Input!" << endl;
+			Prompt();
+			break;
 		}
-		while (true) {
+		while (true)
+		{
 			cin.ignore();
-			cout << endl << "User JubiLoop's Video Menu Again? (Y/N): ";
+			cout << endl
+				 << "User JubiLoop's Video Menu Again? (Y/N): ";
 			char choice;
 			cin >> choice;
-			if (choice == 'Y' || choice == 'y') {
+			if (choice == 'Y' || choice == 'y')
+			{
 				system("cls");
 				break;
-			} else if (choice == 'N' || choice == 'n') {
+			}
+			else if (choice == 'N' || choice == 'n')
+			{
 				cout << "Exiting..." << endl;
 				return 0;
-			} else {
+			}
+			else
+			{
 				cout << "Please try again." << endl;
 			}
 		}

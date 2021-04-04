@@ -30,6 +30,8 @@ class CustomerParentList {
 		void AddCustomer(string name, string address);
 		void ShowCustomerDetails();
 		void DisplayCustomers(int person_id, string &name, string &address);
+		bool CheckCustomerId(int id_key);
+		void retrieveCustomerInfo(int id_key);
 		bool IsEmpty();
 };
 
