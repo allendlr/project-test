@@ -32,12 +32,11 @@ public:
 	void NewVideo(string title, string genre, string production, int copies, string file);
 	void ShowVideoDetails(int input_id);
 	void CheckAvailability(int input_id);
+	bool isExist(int input_id);
 	void DisplayVideos();
-	void retrieveVideos(int id_key);
+	void retrieveVideos(int *id_key, int index);
 	void addCopy(int);
 	void subCopy(int);
-	void update();
-	void retrieve();
 	~VideoList();
 };
 

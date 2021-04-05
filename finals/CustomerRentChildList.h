@@ -17,20 +17,23 @@ private:
 	struct RentNode
 	{
 		Rent data;
-		RentNode *next = NULL;
+		RentNode *next;
 	};
 
 	int id1, id2;
-	RentNode *head = NULL;
+	bool isRented = false;
+	RentNode *head;
 
 public:
 	CustomerRentChildList();
 	~CustomerRentChildList();
-	void RentVideo();
-	void DisplayRentList(int id_key);
-	void ReturnVideo();
-	void RetrieveRent();
-	void UpdateRent();
+	void RentVideo(int, int);
+	int *DisplayRentList(int id_key);
+	int GetIndex(int id_key);
+	void ReturnVideo(int, int);
+	bool getAddOrSub();
+	void setAddOrSub();
+
 };
 
 #endif

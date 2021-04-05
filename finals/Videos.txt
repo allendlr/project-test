@@ -2,21 +2,21 @@
 Avengers: Endgame
 Sci-Fi
 Marvel Studios
-10
+5
 endgame.jpg
 
 2
 Toy Story
 Comedy
 Disney Studios
-35
+33
 c:\toy_story.jpg
 
 3
 Kimetsu No Yaiba: Mugen Train
 Action
 Ufotable, Inc
-12
+11
 c:\mugen_train.jpg
 
 4

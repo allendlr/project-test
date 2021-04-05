@@ -14,7 +14,7 @@ int main()
 	CustomerParentList customer_parent_list_object;
 	CustomerRentChildList customer_rent_child_list_object;
 	// variables for the video
-	int copies, input_id;
+	int copies, video_id, customer_id;
 	string title, genre, production, file;
 	// variables for the customer parent
 	string name, address;
@@ -23,25 +23,56 @@ int main()
 		switch (Menu())
 		{
 		case '1':
-			cout << endl
-				 << " << Insert a Movie >> " << endl
-				 << endl;
+			cout << endl << " << Insert a Movie >> " << endl << endl;
 			video_list_object.GetVideoData(&title, &genre, &production, &copies, &file);
 			video_list_object.NewVideo(title, genre, production, copies, file);
 			Prompt();
 			break;
 		case '2':
-			cout << endl
-				 << " << Rent a Video >> " << endl
-				 << endl;
-			customer_rent_child_list_object.RentVideo();
+			cout << endl << " << Rent a Video >> " << endl << endl;
+			cout<<"Enter Video ID: ";
+			cin >> video_id;
+			cout <<"Enter Customer_ID: ";
+			cin >> customer_id;
+			if (customer_parent_list_object.CheckCustomerId(customer_id)){
+				if(video_list_object.isExist(video_id)){
+					customer_rent_child_list_object.RentVideo(video_id, customer_id);
+					if (customer_rent_child_list_object.getAddOrSub())
+					{
+						video_list_object.subCopy(video_id);
+						customer_rent_child_list_object.setAddOrSub();
+					}
+				} else {
+					cout << "\nVideo Doesn't Exist or No Copies Available";
+				}
+				
+			} else{
+				cout << "\nCustomer Doesn't Exist! Please Try Again.";
+			}
+		
 			Prompt();
 			break;
 		case '3':
-			cout << endl
-				 << " << Return a Video >> " << endl
-				 << endl;
-			customer_rent_child_list_object.ReturnVideo();
+			cout << endl << " << Return a Video >> " << endl << endl;
+			cout << "Enter Movie ID to Return: ";
+			cin >> video_id;
+			cout << "Enter Customer ID:";
+			cin >> customer_id;
+			if (customer_parent_list_object.CheckCustomerId(customer_id)){
+				if (video_list_object.isExist(video_id)){
+					customer_rent_child_list_object.ReturnVideo(video_id, customer_id);
+					if (customer_rent_child_list_object.getAddOrSub())
+					{
+						video_list_object.addCopy(video_id);
+						customer_rent_child_list_object.setAddOrSub();
+					}
+				} else{
+					cout << "\nVideo Doesn't Exist!";
+				}
+			} else{
+				cout << "\nCustomer Doesn't Exist! Please Try Again.";
+			}
+				
 			Prompt();
 			break;
 		case '4':
@@ -49,8 +80,8 @@ int main()
 				 << " << Show Video Details >> " << endl
 				 << endl;
 			cout << "Video ID: ";
-			cin >> input_id;
-			video_list_object.ShowVideoDetails(input_id);
+			cin >> video_id;
+			video_list_object.ShowVideoDetails(video_id);
 			Prompt();
 			break;
 		case '5':
@@ -64,8 +95,8 @@ int main()
 				 << " << Check Video Availability >> " << endl
 				 << endl;
 			cout << "Video ID: ";
-			cin >> input_id;
-			video_list_object.CheckAvailability(input_id);
+			cin >> video_id;
+			video_list_object.CheckAvailability(video_id);
 			Prompt();
 			break;
 		case '7':
@@ -75,25 +106,31 @@ int main()
 			switch (SubMenu())
 			{
 			case '1':
-				cout << endl
-					 << " << Add New Customer >> " << endl
-					 << endl;
+				cout << endl << " << Add New Customer >> " << endl<< endl;
 				customer_parent_list_object.GetCustomerData(&name, &address);
 				customer_parent_list_object.AddCustomer(name, address);
 				Prompt();
 				break;
 			case '2':
-				cout << endl
-					 << " << Show Customer Details >> " << endl;
+				cout << endl << " << Show Customer Details >> " << endl;
 				customer_parent_list_object.ShowCustomerDetails();
 				Prompt();
 				break;
 			case '3':
-				cout << endl
-					 << " << List of Videos Rented by a Customer >> " << endl;
+				cout << endl << " << List of Videos Rented by a Customer >> " << endl;
 				cout << "Customer ID: ";
-				cin>> input_id;
-				customer_rent_child_list_object.DisplayRentList(input_id);
+				cin>> customer_id;
+				if (customer_parent_list_object.CheckCustomerId(customer_id))
+				{
+					int *id = customer_rent_child_list_object.DisplayRentList(customer_id);
+					int index = customer_rent_child_list_object.GetIndex(customer_id);
+					customer_parent_list_object.retrieveCustomerInfo(customer_id);
+					if(index > 0)
+						video_list_object.retrieveVideos(id, index);
+				}
+				else
+					cout << "\nCustomer Doesn't Exist";
+
 				break;
 			default:
 				cout << endl
